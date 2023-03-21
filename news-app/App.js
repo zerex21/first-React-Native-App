@@ -1,22 +1,37 @@
 /* import { StatusBar } from 'expo-status-bar'; */
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import styled from 'styled-components/native';
+import { Text, Alert, View } from 'react-native';
+import { Post } from './components/Post';
+import axios from 'axios';
+import React from 'react';
 
-const Post = styled.View`
-  flex: 1;
-  padding-top:70px;
-  border-bottom-width: 1px;
-  border-bottom-color: rgba(0, 0, 0, 0.1);
-  border-bottom-style: solid;
-`;
 
 
 
 export default function App() {
+
+  const [items, setItems] = React.useState();
+
+  React.useEffect( () =>{
+  axios.get('https://6419d5a5c152063412cd4469.mockapi.io/article')
+  .then(({data}) =>{
+    setItems(data)
+  }).catch(err =>{
+    console.log(err);
+    Alert.alert('Ошибка', 'Не удалось получить статьи');
+  })
+}, [])
+
   return (
     <View>
-      <Post/>
+      {
+        items.map( (obj) => (
+          <Post title = {obj.title}
+          imageUrl = {obj.imageUrl}
+          createdDate = {obj.createAt}/>
+        ))
+      }
+
       <StatusBar theme = "auto"/>
     </View>
   );
