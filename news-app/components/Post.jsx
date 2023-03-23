@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 const PostView = styled.View`
   flex-direction: row;
-  padding:70px 10px 10px 10px;
+  padding:60px 10px 10px 10px;
   border-bottom-width: 1px;
   border-bottom-color: rgba(0, 0, 0, 0.1);
   border-bottom-style: solid;
